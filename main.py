@@ -1,3 +1,5 @@
+import sys
+
 import stats
 
 
@@ -19,16 +21,20 @@ def print_stats(file: str, words: int, dict_list: list):
     print(f"{' END ':=^33}")
 
 
-def main(book: str):
-    contents = get_book_text(book)
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    book_path = sys.argv[1]
+    contents = get_book_text(book_path)
     word_count = stats.count_words(contents)
     character_count = stats.count_char(contents)
     sorted = stats.sorted_list(character_count)
     # print(f"{word_count} words found in the document")
     # print(character_count)
     # print(sorted_list(character_count))
-    print_stats(book, word_count, sorted)
+    print_stats(book_path, word_count, sorted)
 
 
 if __name__ == "__main__":
-    main("books/frankenstein.txt")
+    main()
